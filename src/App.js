@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import styles from "./styles.css";
 
 function App() {
+  const [text, setText] = useState("");
+
+  function handleChange(event) {
+    const { value } = event.target;
+    setText(value);
+  }
+
+  function calculateWordCount(text) {
+    const wordsArr = text.trim().split(" ");
+    return wordsArr.filter((word) => word !== "").length;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>How fast can you type?</h1>
+      <textarea onChange={handleChange} value={text} />
+      <h4>Time remaining:</h4>
+      <button onClick={() => calculateWordCount(text)}>Start</button>
+      <h1>Word count:</h1>
     </div>
   );
 }
